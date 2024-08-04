@@ -14,9 +14,4 @@ public class TranslatorConfig {
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }
-
-    @Bean
-    public ExecutorService executorService() {
-        return Executors.newFixedThreadPool(10);
-    }
 }

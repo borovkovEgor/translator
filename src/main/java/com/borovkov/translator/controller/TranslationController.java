@@ -25,7 +25,7 @@ public class TranslationController {
             @RequestParam String sourceLanguage,
             @RequestParam String targetLanguage,
             Model model,
-            HttpServletRequest request) throws JsonProcessingException {
+            HttpServletRequest request) {
 
         String ipAddress = request.getRemoteAddr();
 
