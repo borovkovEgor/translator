@@ -3,58 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <title>Переводчик</title>
-  <style>
-    .container {
-      width: 50%;
-      margin: auto;
-      padding: 20px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    .form-group {
-      margin-bottom: 15px;
-    }
-    label {
-      display: block;
-      margin-bottom: 5px;
-    }
-    textarea {
-      width: 100%;
-      height: 100px;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-    }
-  </style>
+  <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
 <div class="container">
   <h1>Переводчик</h1>
   <form action="/translate" method="post">
     <div class="form-group">
-      <label for="sourceLanguage">Source Language</label>
+      <label for="sourceLanguage"></label>
       <select id="sourceLanguage" name="sourceLanguage">
-        <option th:each="lang : ${languages}" th:value="${lang.code}" th:text="${lang.name}"></option>
+        <option th:each="lang : ${languages}"
+                th:value="${lang.code}"
+                th:text="${lang.name}"
+                th:selected="${lang.code == defaultSourceLanguage}"></option>
       </select>
     </div>
     <div class="form-group">
-      <label for="text">Source Text</label>
+      <label for="text"></label>
       <textarea id="text" name="text" required th:text="${sourceText}"></textarea>
     </div>
     <div class="form-group">
-      <label for="targetLanguage">Target Language</label>
+      <label for="targetLanguage"></label>
       <select id="targetLanguage" name="targetLanguage">
-        <option th:each="lang : ${languages}" th:value="${lang.code}" th:text="${lang.name}"></option>
+        <option th:each="lang : ${languages}"
+                th:value="${lang.code}"
+                th:text="${lang.name}"
+                th:selected="${lang.code == defaultTargetLanguage}"></option>
       </select>
     </div>
-    <button type="submit">Translate</button>
+    <button type="submit">Перевести</button>
   </form>
 
   <div th:if="${translatedText}">
-    <h2>Translated Text</h2>
+    <h2>Переведенный текст</h2>
     <p th:text="${translatedText}"></p>
+  </div>
+  <div class="footer-note">
+    <p>Пожалуйста, не отправляйте ваши <a href="https://www.tinkoff.ru/" target="_blank">финансовые данные</a> для перевода. Этот инструмент создан исключительно в образовательных целях</p>
   </div>
 </div>
 </body>

@@ -35,13 +35,13 @@ public class TranslationController {
 
         Translation translation = translationService.save(text, sourceLanguage, targetLanguage, ipAddress);
 
-        model.addAttribute("sourceLanguage", translation.getSourceLanguage());
-        model.addAttribute("targetLanguage", translation.getTargetLanguage());
         model.addAttribute("sourceText", translation.getSourceText());
         model.addAttribute("translatedText", translation.getTranslatedText());
 
         List<Language> languages = languageService.getAllLanguages();
         model.addAttribute("languages", languages);
+        model.addAttribute("defaultSourceLanguage", sourceLanguage);
+        model.addAttribute("defaultTargetLanguage", targetLanguage);
 
         return "translator";
     }
@@ -51,7 +51,6 @@ public class TranslationController {
 
         List<Language> languages = languageService.getAllLanguages();
         model.addAttribute("languages", languages);
-
         return "translator";
     }
 }
