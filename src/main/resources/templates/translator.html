@@ -36,7 +36,7 @@
     <div class="form-group">
       <label for="sourceLanguage">Source Language</label>
       <select id="sourceLanguage" name="sourceLanguage">
-        <option th:each="lang : ${sourceLanguages}" th:value="${lang}" th:text="${lang}"></option>
+        <option th:each="lang : ${languages}" th:value="${lang.code}" th:text="${lang.name}"></option>
       </select>
     </div>
     <div class="form-group">
@@ -46,7 +46,7 @@
     <div class="form-group">
       <label for="targetLanguage">Target Language</label>
       <select id="targetLanguage" name="targetLanguage">
-        <option th:each="lang : ${targetLanguages}" th:value="${lang}" th:text="${lang}"></option>
+        <option th:each="lang : ${languages}" th:value="${lang.code}" th:text="${lang.name}"></option>
       </select>
     </div>
     <button type="submit">Translate</button>

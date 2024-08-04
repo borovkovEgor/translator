@@ -1,8 +1,9 @@
 package com.borovkov.translator.controller;
 
+import com.borovkov.translator.model.Language;
 import com.borovkov.translator.model.Translation;
+import com.borovkov.translator.service.LanguageService;
 import com.borovkov.translator.service.TranslationService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -12,12 +13,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/translate")
 public class TranslationController {
 
-    private final TranslationService service;
+    private final TranslationService translationService;
+    private final LanguageService languageService;
 
     @PostMapping
     public String translate(
@@ -29,23 +33,25 @@ public class TranslationController {
 
         String ipAddress = request.getRemoteAddr();
 
-        Translation translation = service.save(text, sourceLanguage, targetLanguage, ipAddress);
+        Translation translation = translationService.save(text, sourceLanguage, targetLanguage, ipAddress);
 
         model.addAttribute("sourceLanguage", translation.getSourceLanguage());
         model.addAttribute("targetLanguage", translation.getTargetLanguage());
         model.addAttribute("sourceText", translation.getSourceText());
         model.addAttribute("translatedText", translation.getTranslatedText());
 
-        model.addAttribute("sourceLanguages", new String[] {"en", "ru"});
-        model.addAttribute("targetLanguages", new String[] {"en", "ru"});
+        List<Language> languages = languageService.getAllLanguages();
+        model.addAttribute("languages", languages);
 
-        return "index";
+        return "translator";
     }
 
     @GetMapping
     public String index(Model model) {
-        model.addAttribute("sourceLanguages", new String[] {"en", "ru"});
-        model.addAttribute("targetLanguages", new String[] {"en", "ru"});
-        return "index";
+
+        List<Language> languages = languageService.getAllLanguages();
+        model.addAttribute("languages", languages);
+
+        return "translator";
     }
 }
